@@ -108,6 +108,94 @@ body{font-family:'Noto Sans TC',sans-serif;background:#faf8f4;color:#1a1a1a;line
 .footer-sub{font-size:13px;color:#7a6a40;font-weight:500;margin-bottom:1rem}
 .footer-links{display:flex;justify-content:center;gap:1.5rem;flex-wrap:wrap}
 .footer-links a{font-size:13px;color:#a89060;text-decoration:none;letter-spacing:0.5px;font-weight:500}
+
+/* ── 手機響應式 ── */
+@media (max-width: 600px) {
+
+  /* HERO */
+  .hero { padding: 2rem 1.25rem 0; }
+  .hero-logo { width: 180px; }
+  .hero-title { font-size: 1.75rem; }
+  .hero-sub { font-size: 13px; }
+
+  /* 四大數字：手機改2欄 */
+  .stats { grid-template-columns: repeat(2,1fr); }
+  .stat { border-right: none; border-bottom: 1px solid #2a1f10; }
+  .stat:nth-child(odd) { border-right: 1px solid #2a1f10; }
+  .stat:last-child { border-bottom: none; }
+  .stat-num { font-size: 1.5rem; }
+  .stat-desc { font-size: 12px; }
+
+  /* SECTION */
+  .sec { padding: 1.75rem 1.25rem 0; }
+  .sec-title { font-size: 1.2rem; }
+  .sec-divider { margin: 1.75rem 1.25rem 0; }
+
+  /* 專案列表：縮小左側黑柱，給右側更多空間 */
+  .proj-row { grid-template-columns: 4.5rem 1fr; }
+  .proj-index { padding: 1.25rem 0.35rem; }
+  .proj-index-num { font-size: 1.5rem; }
+  .proj-index-tag { font-size: 11px; }
+  .proj-body { padding: 1.1rem 1rem; }
+  .proj-name { font-size: 1rem; }
+  .proj-desc { font-size: 14px; }
+  .proj-cta { display: block; }
+  .proj-cta a { font-size: 14px; }
+
+  /* 倡議行動 */
+  .adv-intro { padding: 1.25rem 1.25rem 0; font-size: 14px; }
+  .adv-year-word { padding: 1rem 1.25rem; }
+  .adv-char { font-size: 2.8rem; }
+  .adv-char-desc { font-size: 13px; }
+  .adv-item { padding: 0.9rem 1.25rem; grid-template-columns: 2rem 1fr; gap: 0.6rem; }
+  .adv-item-num { font-size: 1.1rem; }
+  .adv-item-tag { font-size: 13px; }
+  .adv-item-desc { font-size: 14px; }
+
+  /* 倡議數字：手機改單欄 */
+  .adv-stats { grid-template-columns: 1fr; }
+  .adv-stat { padding: 1rem; }
+  .adv-stat-num { font-size: 1.4rem; }
+
+  .adv-link-row { padding: 0.85rem 1.25rem; flex-direction: column; gap: 0.75rem; }
+  .adv-closing { padding: 1.25rem 1.25rem; font-size: 14px; }
+
+  /* 評鑑：手機改單欄堆疊 */
+  .eval { grid-template-columns: 1fr; padding: 1.25rem 1.25rem; gap: 1.25rem; }
+  .eval-h { font-size: 1.1rem; }
+  .eval-p { font-size: 14px; }
+  .eval-nums { grid-template-columns: repeat(4,1fr); min-width: unset; }
+  .eval-n { padding: 0.75rem 0.4rem; }
+  .eval-n-num { font-size: 1.2rem; }
+  .eval-n-label { font-size: 10px; }
+  .eval-btn { font-size: 14px; padding: 0.7rem 0.85rem; }
+
+  /* 國際足跡：縮小左側日期欄 */
+  .intl-row { grid-template-columns: 4rem 1fr; }
+  .intl-date { padding: 0.85rem 0.4rem; }
+  .intl-date-month { font-size: 10px; }
+  .intl-date-place { font-size: 10px; }
+  .intl-content { padding: 0.9rem 1rem; }
+  .intl-h { font-size: 0.95rem; }
+  .intl-p { font-size: 13px; }
+
+  /* 照片：手機改2欄 */
+  .photos { grid-template-columns: repeat(2,1fr); }
+  .photo-cap-text { font-size: 10px; }
+
+  /* 捐款 */
+  .donate { padding: 1.75rem 1.25rem; }
+  .donate-h { font-size: 1.05rem; }
+  .donate-p { font-size: 13px; }
+  .donate-btns { flex-direction: column; align-items: center; }
+  .donate-btns a { width: 100%; max-width: 280px; text-align: center; }
+
+  /* Footer */
+  .footer { padding: 1.5rem 1.25rem; }
+  .footer-logo-img { width: 140px; }
+  .footer-links { gap: 1rem; }
+  .footer-links a { font-size: 12px; }
+}
 </style>
 </head>
 <body>
