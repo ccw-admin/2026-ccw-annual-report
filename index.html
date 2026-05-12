@@ -208,12 +208,29 @@ body{font-family:'Noto Sans TC',sans-serif;background:#faf8f4;color:#1a1a1a;line
 }
 
 /* ── 分頁系統 ── */
-.tab-nav {
-  background: #140e05;
-  display: flex;
+.tab-nav-wrap {
   position: sticky;
   top: 0;
   z-index: 100;
+  background: #140e05;
+}
+/* 提示文字 */
+.tab-hint {
+  text-align: center;
+  font-size: 11px;
+  color: #5a4a2a;
+  padding: 6px 0 0;
+  letter-spacing: 1px;
+  font-family: 'Noto Sans TC', sans-serif;
+  animation: blink-hint 2.5s ease-in-out 1.5s 3;
+}
+@keyframes blink-hint {
+  0%,100% { opacity: 0.4; }
+  50% { opacity: 1; color: #c89b5a; }
+}
+.tab-nav {
+  background: #140e05;
+  display: flex;
   padding: 10px 12px 0;
   gap: 8px;
   border-bottom: 3px solid #2a1f10;
@@ -227,15 +244,33 @@ body{font-family:'Noto Sans TC',sans-serif;background:#faf8f4;color:#1a1a1a;line
   color: #6a5a40;
   font-family: 'Noto Sans TC', sans-serif;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: all 0.25s;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 2px;
   padding: 9px 6px 11px;
-  min-height: 62px;
+  min-height: 68px;
+  position: relative;
 }
+/* 未選中的 tab 加閃爍點提示 */
+.tab-btn:not(.active)::after {
+  content: '';
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #c89b5a;
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+@keyframes pulse-dot {
+  0%,100% { opacity: 0.3; transform: scale(0.8); }
+  50% { opacity: 1; transform: scale(1.2); }
+}
+.tab-btn.active::after { display: none; }
 .tab-btn:hover { color: #c89b5a; background: #261c0e; border-color: #c89b5a; }
 .tab-btn.active {
   background: #faf8f4;
@@ -245,22 +280,38 @@ body{font-family:'Noto Sans TC',sans-serif;background:#faf8f4;color:#1a1a1a;line
   margin-bottom: -3px;
 }
 .tab-icon { font-size: 22px; line-height: 1; }
-.tab-label { font-size: 13px; font-weight: 700; letter-spacing: 0.3px; line-height: 1.3; text-align: center; }
+.tab-label { font-size: 14px; font-weight: 700; letter-spacing: 0.3px; line-height: 1.3; text-align: center; }
 .tab-sub { font-size: 10px; font-weight: 400; color: #5a4a2a; line-height: 1.2; text-align: center; }
 .tab-btn.active .tab-label { color: #1c1008; }
 .tab-btn.active .tab-sub { color: #8a7a60; }
+/* 箭頭指示 */
+.tab-arrow {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 0 2px;
+  font-size: 11px;
+  color: #5a4a2a;
+  font-family: 'Noto Sans TC', sans-serif;
+}
+.tab-arrow-icon {
+  font-size: 14px;
+  animation: bounce-lr 1.5s ease-in-out infinite;
+}
+@keyframes bounce-lr {
+  0%,100% { transform: translateX(0); }
+  50% { transform: translateX(4px); }
+}
 .tab-panel { display: none; }
 .tab-panel.active { display: block; }
-
-@media (max-width: 600px) {
-  .dinner-info-grid { grid-template-columns: 1fr !important; }
-}
 @media (max-width: 600px) {
   .tab-nav { padding: 8px 8px 0; gap: 5px; }
-  .tab-btn { min-height: 58px; padding: 8px 4px 10px; }
+  .tab-btn { min-height: 64px; padding: 8px 4px 10px; }
   .tab-icon { font-size: 20px; }
-  .tab-label { font-size: 12px; }
+  .tab-label { font-size: 13px; }
   .tab-sub { font-size: 9px; }
+  .tab-hint { font-size: 10px; }
 }
   .tab-btn { min-height: 54px; padding: 7px 3px 9px; }
   .tab-icon { font-size: 18px; }
@@ -378,24 +429,41 @@ function switchTab(tabId) {
   document.querySelector('[data-tab="' + tabId + '"]').classList.add('active');
   document.getElementById(tabId).classList.add('active');
   window.scrollTo({top: 0, behavior: 'smooth'});
+  // 更新箭頭提示
+  var hint = document.getElementById('tab-arrow-hint');
+  if(hint) {
+    if(tabId === 'tab-2026') {
+      hint.innerHTML = '<span>點擊右側可查看</span><span class="tab-arrow-icon">→</span><span>2025 年度成果</span>';
+    } else {
+      hint.innerHTML = '<span class="tab-arrow-icon" style="transform:scaleX(-1);display:inline-block">→</span><span>點擊左側回到</span>&nbsp;<span>2026 支持我們</span>';
+    }
+  }
 }
 </script>
 
 <body>
 
 <!-- 分頁導覽 -->
-<nav class="tab-nav">
-  <button class="tab-btn active" data-tab="tab-2026" onclick="switchTab('tab-2026')">
-    <span class="tab-icon">🗳️</span>
-    <span class="tab-label">2026 支持我們</span>
-    <span class="tab-sub">募款專案 ＋ 餐會</span>
-  </button>
-  <button class="tab-btn" data-tab="tab-2025" onclick="switchTab('tab-2025')">
-    <span class="tab-icon">📋</span>
-    <span class="tab-label">2025 年度成果</span>
-    <span class="tab-sub">四大專案回顧</span>
-  </button>
-</nav>
+<div class="tab-nav-wrap">
+  <div class="tab-hint">👆 點擊切換頁面</div>
+  <nav class="tab-nav">
+    <button class="tab-btn active" data-tab="tab-2026" onclick="switchTab('tab-2026')">
+      <span class="tab-icon">🗳️</span>
+      <span class="tab-label">2026 支持我們</span>
+      <span class="tab-sub">募款專案 ＋ 餐會</span>
+    </button>
+    <button class="tab-btn" data-tab="tab-2025" onclick="switchTab('tab-2025')">
+      <span class="tab-icon">📋</span>
+      <span class="tab-label">2025 年度成果</span>
+      <span class="tab-sub">四大專案回顧</span>
+    </button>
+  </nav>
+  <div class="tab-arrow" id="tab-arrow-hint">
+    <span>點擊右側可查看</span>
+    <span class="tab-arrow-icon">→</span>
+    <span>2025 年度成果</span>
+  </div>
+</div>
 
 <!-- 2025 分頁 -->
 <div id="tab-2025" class="tab-panel">
